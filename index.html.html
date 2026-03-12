@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Impulsa tu Presencia Digital | WorldKlox</title>
+  <meta name="robots" content="noindex" />
+  <title>Presencia Digital para Latinos | WorldKlox</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
   <style>
@@ -16,6 +17,8 @@
       --glow:    #a78bfa;
       --pink:    #ec4899;
       --hot:     #f472b6;
+      --gold:    #fbbf24;
+      --green:   #4ade80;
       --text:    #f5f0ff;
       --muted:   #8b7aa8;
       --card:    rgba(255,255,255,.04);
@@ -52,6 +55,23 @@
     @keyframes drift {
       from { transform: translate(0,0) scale(1); }
       to   { transform: translate(30px,40px) scale(1.1); }
+    }
+
+    /* ─── PARTICLES ─── */
+    .particles { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+    .particle {
+      position: absolute;
+      width: 2px; height: 2px;
+      border-radius: 50%;
+      background: var(--glow);
+      opacity: 0;
+      animation: floatUp linear infinite;
+    }
+    @keyframes floatUp {
+      0%   { opacity: 0; transform: translateY(0) scale(0); }
+      10%  { opacity: .6; }
+      90%  { opacity: .3; }
+      100% { opacity: 0; transform: translateY(-100vh) scale(1.5); }
     }
 
     /* ─── MAIN LAYOUT ─── */
@@ -113,7 +133,7 @@
     }
     .badge-dot { width: 7px; height: 7px; border-radius: 50%; background: #4ade80; animation: pulse 1.8s infinite; }
 
-    /* ─── STATS ROW (moved to top) ─── */
+    /* ─── STATS ROW ─── */
     .stats-top {
       display: flex; gap: 12px; margin-bottom: 32px; flex-wrap: wrap; justify-content: center;
       opacity: 0; animation: fadeUp .5s .3s ease forwards;
@@ -123,7 +143,9 @@
       border-radius: 100px; padding: 8px 18px;
       display: flex; align-items: center; gap: 8px;
       font-size: .82rem; backdrop-filter: blur(8px);
+      transition: border-color .3s, transform .3s;
     }
+    .stat-pill:hover { border-color: rgba(167,139,250,.4); transform: translateY(-2px); }
     .stat-pill .val {
       font-family: 'Syne', sans-serif; font-weight: 700; font-size: .95rem;
       background: linear-gradient(90deg, var(--glow), var(--hot));
@@ -169,8 +191,10 @@
       display: flex; align-items: center; justify-content: center;
       font-size: .72rem; font-weight: 700;
       margin-left: -10px;
+      transition: transform .2s;
     }
     .avatars span:first-child { margin-left: 0; }
+    .avatars span:hover { transform: scale(1.15) translateY(-3px); z-index: 2; }
     .a1{background:linear-gradient(135deg,#7c3aed,#ec4899)}
     .a2{background:linear-gradient(135deg,#ec4899,#f97316)}
     .a3{background:linear-gradient(135deg,#06b6d4,#7c3aed)}
@@ -261,6 +285,38 @@
     }
     .t-sep { width: 3px; height: 3px; background: var(--muted); border-radius: 50%; opacity: .35; }
 
+    /* ─── FEATURE CARDS ─── */
+    .features {
+      display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+      max-width: 500px; width: 100%;
+      margin-bottom: 32px;
+      opacity: 0; animation: fadeUp .6s .85s ease forwards;
+    }
+    .feat-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 16px 20px;
+      display: flex; align-items: center; gap: 12px;
+      flex: 1; min-width: 140px;
+      backdrop-filter: blur(8px);
+      transition: border-color .3s, transform .3s, box-shadow .3s;
+    }
+    .feat-card:hover {
+      border-color: rgba(167,139,250,.35);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(124,58,237,.2);
+    }
+    .feat-icon {
+      width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+    }
+    .fi-1 { background: linear-gradient(135deg, rgba(124,58,237,.4), rgba(167,139,250,.2)); }
+    .fi-2 { background: linear-gradient(135deg, rgba(236,72,153,.4), rgba(244,114,182,.2)); }
+    .fi-3 { background: linear-gradient(135deg, rgba(251,191,36,.35), rgba(245,158,11,.2)); }
+    .feat-text { font-size: .8rem; line-height: 1.45; }
+    .feat-title { font-weight: 600; color: var(--text); margin-bottom: 2px; }
+    .feat-sub { color: var(--muted); font-size: .74rem; }
+
     /* ─── TESTIMONIAL ─── */
     .testimonial {
       background: var(--card); border: 1px solid var(--border);
@@ -268,6 +324,11 @@
       backdrop-filter: blur(12px);
       opacity: 0; animation: fadeUp .6s 1s ease forwards;
       position: relative;
+      transition: border-color .3s, box-shadow .3s;
+    }
+    .testimonial:hover {
+      border-color: rgba(167,139,250,.3);
+      box-shadow: 0 12px 40px rgba(124,58,237,.15);
     }
     .testimonial::before {
       content: '"';
@@ -291,6 +352,15 @@
     .testi-name { font-size: .85rem; font-weight: 500; color: var(--text); }
     .testi-role { font-size: .75rem; color: var(--muted); }
     .testi-stars { color: #fbbf24; font-size: .82rem; margin-top: 2px; }
+
+    /* ─── VERIFIED BADGE on testimonial ─── */
+    .verified-badge {
+      position: absolute; top: 16px; right: 16px;
+      display: flex; align-items: center; gap: 4px;
+      background: rgba(74,222,128,.1); border: 1px solid rgba(74,222,128,.25);
+      border-radius: 100px; padding: 3px 10px;
+      font-size: .68rem; color: var(--green); font-weight: 600;
+    }
 
     /* ─── LIVE ACTIVITY ─── */
     .live-activity {
@@ -319,6 +389,9 @@
     }
     @keyframes popIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
 
+    /* ─── COUNTER ANIMATION ─── */
+    .count-up { display: inline-block; }
+
     /* ─── ANIMATIONS ─── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(24px); }
@@ -338,6 +411,8 @@
       .live-activity { display: none; }
       .trust { gap: 12px; }
       .t-sep { display: none; }
+      .features { gap: 8px; }
+      .feat-card { min-width: 120px; padding: 12px 14px; }
     }
   </style>
 </head>
@@ -348,13 +423,16 @@
   <div class="orb orb-1"></div>
   <div class="orb orb-2"></div>
 
+  <!-- PARTICLES -->
+  <div class="particles" id="particles"></div>
+
   <!-- TOP URGENCY BAR -->
   <div class="urgency-bar">
     <span class="live-count">
       <span class="live-dot"></span>
       <span id="viewers">34</span> personas están viendo esto ahora mismo
     </span>
-    &nbsp;·&nbsp; Oferta especial activa por tiempo limitado
+    &nbsp;·&nbsp; Acceso especial activo por tiempo limitado
   </div>
 
   <!-- MAIN -->
@@ -371,7 +449,7 @@
     <!-- STATS ARRIBA -->
     <div class="stats-top">
       <div class="stat-pill">
-        <span class="val">12K+</span>
+        <span class="val"><span class="count-up" data-target="12000" data-suffix="+">0</span></span>
         <span class="lbl">cuentas activas</span>
       </div>
       <div class="stat-pill">
@@ -385,12 +463,12 @@
     </div>
 
     <!-- HEADLINE -->
-    <h1>Tu cuenta merece<br><em>ser vista por miles</em></h1>
+    <h1>Tu negocio merece<br><em>proyectar autoridad</em></h1>
 
     <!-- SUB -->
     <p class="sub">
       La estrategia que usan los <strong>negocios y creadores latinos</strong>
-      en USA para construir presencia digital real y atraer más oportunidades.
+      en USA para construir presencia digital real y ser tomados en serio.
     </p>
 
     <!-- SOCIAL PROOF -->
@@ -404,14 +482,14 @@
       </div>
       <div class="proof-txt">
         <div class="stars">★★★★★</div>
-        <strong>+12,000 latinos</strong> ya aceleraron su crecimiento
+        <strong>+12,000 latinos</strong> ya fortalecieron su presencia digital
       </div>
     </div>
 
     <!-- CTA PRINCIPAL -->
     <div class="cta-section">
       <a class="cta" href="https://www.viralizame.com" target="_blank" rel="noopener">
-        Quiero impulsar mi cuenta ahora
+        Quiero proyectar autoridad
         <span class="cta-icon">
           <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
             <path d="M2 7.5h11M8 2.5l5 5-5 5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -419,7 +497,7 @@
         </span>
       </a>
 
-      <!-- MICRO-COPY DEBAJO DEL BOTÓN -->
+      <!-- MICRO-COPY -->
       <div class="micro">
         <div class="micro-item">
           <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
@@ -447,13 +525,38 @@
       </div>
     </div>
 
+    <!-- FEATURE CARDS -->
+    <div class="features">
+      <div class="feat-card">
+        <div class="feat-icon fi-1">🚀</div>
+        <div class="feat-text">
+          <div class="feat-title">Presencia inmediata</div>
+          <div class="feat-sub">Visible donde importa</div>
+        </div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon fi-2">💎</div>
+        <div class="feat-text">
+          <div class="feat-title">Autoridad de marca</div>
+          <div class="feat-sub">Genera confianza real</div>
+        </div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon fi-3">⚡</div>
+        <div class="feat-text">
+          <div class="feat-title">Entrega 24–48h</div>
+          <div class="feat-sub">Sin esperas</div>
+        </div>
+      </div>
+    </div>
+
     <!-- TRUST ROW -->
     <div class="trust">
       <div class="trust-item">
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
           <path d="M7 1.5L8.5 5H12l-2.8 2.1 1 3.4L7 8.6 3.8 10.5l1-3.4L2 5h3.5L7 1.5z" fill="#a78bfa"/>
         </svg>
-        Resultados garantizados
+        Resultados comprobados
       </div>
       <span class="t-sep"></span>
       <div class="trust-item">
@@ -482,6 +585,13 @@
 
     <!-- TESTIMONIO -->
     <div class="testimonial">
+      <div class="verified-badge">
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+          <circle cx="5" cy="5" r="4.5" fill="#4ade80" opacity=".2"/>
+          <path d="M3 5l1.5 1.5 2.5-2.5" stroke="#4ade80" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Verificado
+      </div>
       <p class="testi-text">
         Mi negocio de catering en Miami no despegaba. En menos de dos semanas vi cómo mi perfil ganó visibilidad y empecé a recibir mensajes de clientes nuevos. Esto es real.
       </p>
@@ -508,7 +618,43 @@
   </div>
 
   <script>
-    // ── Contador de viewers aleatorio ──
+    // ── Partículas flotantes ──
+    const container = document.getElementById('particles');
+    for (let i = 0; i < 25; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      const size = Math.random() * 3 + 1;
+      p.style.cssText = `
+        width:${size}px; height:${size}px;
+        left:${Math.random()*100}%;
+        bottom:${Math.random()*20}%;
+        animation-duration:${8+Math.random()*12}s;
+        animation-delay:${Math.random()*10}s;
+        background:${Math.random()>.5?'#a78bfa':'#ec4899'};
+        opacity:0;
+      `;
+      container.appendChild(p);
+    }
+
+    // ── Counter animado ──
+    document.querySelectorAll('.count-up').forEach(el => {
+      const target = parseInt(el.dataset.target);
+      const suffix = el.dataset.suffix || '';
+      const duration = 2000;
+      const step = target / (duration / 16);
+      let current = 0;
+      const timer = setInterval(() => {
+        current = Math.min(current + step, target);
+        if (current >= 10000) {
+          el.textContent = Math.floor(current/1000) + 'K' + suffix;
+        } else {
+          el.textContent = Math.floor(current).toLocaleString() + suffix;
+        }
+        if (current >= target) clearInterval(timer);
+      }, 16);
+    });
+
+    // ── Contador de viewers ──
     const viewersEl = document.getElementById('viewers');
     let v = 34;
     setInterval(() => {
@@ -517,14 +663,14 @@
       viewersEl.textContent = Math.round(v);
     }, 4000);
 
-    // ── Rotación de actividad en vivo ──
+    // ── Rotación actividad en vivo ──
     const activities = [
-      { initials:'SR', name:'Sofia R.',    action:'activó su plan',         city:'Los Ángeles', time:'2 min' },
-      { initials:'JM', name:'Juan M.',     action:'comenzó su crecimiento',  city:'Houston',     time:'5 min' },
-      { initials:'LP', name:'Laura P.',    action:'acaba de unirse',         city:'Nueva York',  time:'1 min' },
-      { initials:'DR', name:'Diego R.',    action:'activó su plan',         city:'Chicago',     time:'3 min' },
-      { initials:'AM', name:'Ana M.',      action:'vio resultados hoy',      city:'Miami',       time:'8 min' },
-      { initials:'CB', name:'Carlos B.',   action:'acaba de unirse',         city:'Dallas',      time:'4 min' },
+      { initials:'SR', name:'Sofia R.',    action:'activó su presencia digital', city:'Los Ángeles', time:'2 min' },
+      { initials:'JM', name:'Juan M.',     action:'fortaleció su perfil',        city:'Houston',     time:'5 min' },
+      { initials:'LP', name:'Laura P.',    action:'acaba de unirse',             city:'Nueva York',  time:'1 min' },
+      { initials:'DR', name:'Diego R.',    action:'activó su plan',              city:'Chicago',     time:'3 min' },
+      { initials:'AM', name:'Ana M.',      action:'vio resultados hoy',          city:'Miami',       time:'8 min' },
+      { initials:'CB', name:'Carlos B.',   action:'acaba de unirse',             city:'Dallas',      time:'4 min' },
     ];
     const colors = [
       'linear-gradient(135deg,#f97316,#ec4899)',
