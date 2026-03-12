@@ -1,637 +1,448 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="robots" content="noindex" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex"/>
   <title>Presencia Digital para Latinos | WorldKlox</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet"/>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg:      #08060f;
-      --purple:  #7c3aed;
-      --violet:  #6d28d9;
-      --glow:    #a78bfa;
-      --pink:    #ec4899;
-      --hot:     #f472b6;
-      --gold:    #fbbf24;
-      --green:   #4ade80;
-      --text:    #f5f0ff;
-      --muted:   #8b7aa8;
-      --card:    rgba(255,255,255,.04);
-      --border:  rgba(255,255,255,.08);
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#08060f;--purple:#7c3aed;--pink:#ec4899;--hot:#f472b6;
+      --glow:#a78bfa;--green:#4ade80;--text:#f5f0ff;--muted:#8b7aa8;
+      --card:rgba(255,255,255,.05);--border:rgba(255,255,255,.09);
     }
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;overflow-x:hidden}
 
-    html { scroll-behavior: smooth; }
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'DM Sans', sans-serif;
-      overflow-x: hidden;
-      min-height: 100vh;
-    }
-
-    /* ─── AMBIENT BACKGROUND ─── */
-    .bg-layer {
-      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    /* AMBIENT */
+    .bg-layer{position:fixed;inset:0;z-index:0;pointer-events:none;
       background:
-        radial-gradient(ellipse 70% 55% at 15% 5%,  rgba(124,58,237,.32) 0%, transparent 65%),
-        radial-gradient(ellipse 55% 45% at 85% 85%, rgba(236,72,153,.20) 0%, transparent 60%),
-        radial-gradient(ellipse 45% 40% at 75% 15%, rgba(109,40,217,.18) 0%, transparent 55%),
-        radial-gradient(ellipse 35% 30% at 40% 70%, rgba(167,139,250,.10) 0%, transparent 50%);
+        radial-gradient(ellipse 70% 55% at 15% 5%,rgba(124,58,237,.3) 0%,transparent 65%),
+        radial-gradient(ellipse 55% 45% at 85% 85%,rgba(236,72,153,.18) 0%,transparent 60%),
+        radial-gradient(ellipse 40% 35% at 75% 15%,rgba(109,40,217,.15) 0%,transparent 55%)}
+    .orb{position:fixed;border-radius:50%;filter:blur(90px);pointer-events:none;z-index:0;opacity:.2;animation:drift 14s ease-in-out infinite alternate}
+    .orb-1{width:380px;height:380px;background:var(--purple);top:-120px;left:-100px}
+    .orb-2{width:260px;height:260px;background:var(--pink);bottom:-70px;right:-70px;animation-delay:-6s}
+    @keyframes drift{from{transform:translate(0,0)}to{transform:translate(28px,38px)}}
+
+    /* PARTICLES */
+    .particles{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+    .particle{position:absolute;border-radius:50%;opacity:0;animation:floatUp linear infinite}
+    @keyframes floatUp{0%{opacity:0;transform:translateY(0) scale(0)}10%{opacity:.5}90%{opacity:.2}100%{opacity:0;transform:translateY(-100vh) scale(1.5)}}
+
+    /* URGENCY BAR */
+    .urgency-bar{
+      position:fixed;top:0;left:0;right:0;z-index:100;
+      background:linear-gradient(90deg,var(--purple),var(--pink),var(--purple));
+      background-size:200% 100%;
+      animation:shimmer 3s linear infinite,slideDown .4s ease both;
+      padding:8px 16px;text-align:center;font-size:.72rem;font-weight:600;color:#fff;
+    }
+    @keyframes shimmer{0%{background-position:0 0}100%{background-position:200% 0}}
+    @keyframes slideDown{from{transform:translateY(-100%)}to{transform:translateY(0)}}
+    .live-count{display:inline-flex;align-items:center;gap:5px}
+    .live-dot{width:6px;height:6px;border-radius:50%;background:#fff;animation:blink 1.2s infinite}
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+
+    /* ═══════════════════════════════
+       HERO — mobile-first layout
+       Urgency bar = ~34px
+       Brand+badge = ~80px
+       H1 = ~100px
+       Sub = ~55px
+       CTA = ~60px
+       micro = ~24px
+       TOTAL ≈ 353px — fits 375px screens
+    ═══════════════════════════════ */
+    .hero{
+      position:relative;z-index:1;
+      min-height:100vh;
+      display:flex;flex-direction:column;align-items:center;
+      padding:38px 20px 32px;
+      /* center vertically but bias toward top so CTA is visible */
+      justify-content:flex-start;
     }
 
-    /* ─── FLOATING ORBS ─── */
-    .orb {
-      position: fixed; border-radius: 50%; filter: blur(80px);
-      pointer-events: none; z-index: 0; opacity: .25;
-      animation: drift 12s ease-in-out infinite alternate;
+    .brand{
+      font-family:'Syne',sans-serif;font-size:.72rem;font-weight:700;
+      letter-spacing:.24em;text-transform:uppercase;color:var(--muted);
+      margin-top:8px;margin-bottom:12px;
+      opacity:0;animation:fadeUp .4s .1s ease forwards;
     }
-    .orb-1 { width: 400px; height: 400px; background: var(--purple); top: -120px; left: -100px; animation-delay: 0s; }
-    .orb-2 { width: 300px; height: 300px; background: var(--pink);   bottom: -80px; right: -80px; animation-delay: -5s; }
-    @keyframes drift {
-      from { transform: translate(0,0) scale(1); }
-      to   { transform: translate(30px,40px) scale(1.1); }
+    .badge{
+      display:inline-flex;align-items:center;gap:7px;
+      background:rgba(124,58,237,.18);border:1px solid rgba(167,139,250,.4);
+      border-radius:100px;padding:6px 16px;
+      font-size:.72rem;font-weight:600;color:var(--glow);
+      margin-bottom:18px;
+      opacity:0;animation:fadeUp .4s .15s ease forwards;
+    }
+    .badge-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 1.8s infinite}
+
+    h1{
+      font-family:'Syne',sans-serif;
+      font-size:clamp(2rem,9vw,3.8rem);
+      font-weight:800;line-height:1.07;
+      text-align:center;max-width:560px;
+      margin-bottom:12px;
+      opacity:0;animation:fadeUp .5s .2s ease forwards;
+    }
+    h1 em{
+      font-style:normal;
+      background:linear-gradient(95deg,var(--glow) 0%,var(--pink) 55%,var(--hot) 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
     }
 
-    /* ─── PARTICLES ─── */
-    .particles { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
-    .particle {
-      position: absolute;
-      width: 2px; height: 2px;
-      border-radius: 50%;
-      background: var(--glow);
-      opacity: 0;
-      animation: floatUp linear infinite;
+    .sub{
+      font-size:clamp(.84rem,2.2vw,.96rem);
+      color:var(--muted);text-align:center;
+      max-width:340px;line-height:1.6;
+      margin-bottom:22px;
+      opacity:0;animation:fadeUp .5s .28s ease forwards;
     }
-    @keyframes floatUp {
-      0%   { opacity: 0; transform: translateY(0) scale(0); }
-      10%  { opacity: .6; }
-      90%  { opacity: .3; }
-      100% { opacity: 0; transform: translateY(-100vh) scale(1.5); }
-    }
+    .sub strong{color:var(--text)}
 
-    /* ─── MAIN LAYOUT ─── */
-    .page {
-      position: relative; z-index: 1;
-      min-height: 100vh;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      padding: 40px 20px 56px;
-      gap: 0;
+    /* CTA */
+    .cta-wrap{
+      width:100%;max-width:380px;
+      display:flex;flex-direction:column;align-items:center;gap:10px;
+      margin-bottom:26px;
+      opacity:0;animation:fadeUp .5s .35s ease forwards;
     }
+    .cta{
+      position:relative;overflow:hidden;
+      display:flex;align-items:center;justify-content:center;gap:10px;
+      width:100%;
+      background:linear-gradient(115deg,var(--purple) 0%,var(--pink) 100%);
+      color:#fff;text-decoration:none;
+      font-family:'Syne',sans-serif;font-weight:800;
+      font-size:clamp(.95rem,3.5vw,1.08rem);
+      padding:17px 24px;border-radius:100px;
+      animation:ctaPulse 2.5s ease-in-out infinite;
+      transition:transform .2s;
+      /* prevent text overflow */
+      white-space:normal;text-align:center;
+    }
+    .cta::before{content:'';position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,.14) 0%,transparent 55%);border-radius:inherit}
+    .cta::after{content:'';position:absolute;top:-50%;left:-60%;width:38%;height:200%;background:rgba(255,255,255,.1);transform:skewX(-20deg);animation:shine 3.5s ease-in-out infinite}
+    .cta:hover{transform:translateY(-3px) scale(1.02);animation:none}
+    .cta:active{transform:scale(.97)}
+    @keyframes ctaPulse{0%,100%{box-shadow:0 0 0 0 rgba(124,58,237,.45),0 6px 30px rgba(124,58,237,.3)}50%{box-shadow:0 0 0 9px rgba(124,58,237,0),0 6px 44px rgba(236,72,153,.32)}}
+    @keyframes shine{0%{left:-60%}100%{left:130%}}
+    .cta-icon{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .2s}
+    .cta:hover .cta-icon{transform:translateX(4px)}
 
-    /* ─── URGENCY BAR (TOP) ─── */
-    .urgency-bar {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: linear-gradient(90deg, var(--purple), var(--pink), var(--purple));
-      background-size: 200% 100%;
-      animation: shimmer 3s linear infinite, slideDown .5s .1s ease both;
-      padding: 10px 20px;
-      text-align: center;
-      font-size: .8rem;
-      font-weight: 500;
-      letter-spacing: .04em;
-      color: #fff;
-    }
-    @keyframes shimmer { 0%{background-position:0 0} 100%{background-position:200% 0} }
-    @keyframes slideDown { from{transform:translateY(-100%)} to{transform:translateY(0)} }
+    .micro{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center}
+    .micro-item{display:flex;align-items:center;gap:4px;font-size:.72rem;color:var(--muted)}
+    .micro-sep{width:3px;height:3px;background:var(--muted);border-radius:50%;opacity:.4}
 
-    .urgency-bar .live-count {
-      display: inline-flex; align-items: center; gap: 6px;
-      font-weight: 700;
+    /* SOCIAL PROOF */
+    .proof{
+      display:flex;align-items:center;gap:12px;
+      margin-bottom:18px;flex-wrap:wrap;justify-content:center;
+      opacity:0;animation:fadeUp .5s .45s ease forwards;
     }
-    .live-dot {
-      width: 7px; height: 7px; border-radius: 50%;
-      background: #fff; animation: blink 1.2s infinite;
-    }
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
-
-    /* ─── BRAND ─── */
-    .brand {
-      font-family: 'Syne', sans-serif;
-      font-size: .85rem; font-weight: 700;
-      letter-spacing: .2em; text-transform: uppercase;
-      color: var(--muted);
-      margin-top: 52px; margin-bottom: 36px;
-      opacity: 0; animation: fadeUp .5s .1s ease forwards;
-    }
-
-    /* ─── BADGE ─── */
-    .badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(124,58,237,.18);
-      border: 1px solid rgba(167,139,250,.4);
-      border-radius: 100px; padding: 7px 18px;
-      font-size: .78rem; font-weight: 500;
-      color: var(--glow); letter-spacing: .05em;
-      margin-bottom: 24px;
-      opacity: 0; animation: fadeUp .5s .2s ease forwards;
-    }
-    .badge-dot { width: 7px; height: 7px; border-radius: 50%; background: #4ade80; animation: pulse 1.8s infinite; }
-
-    /* ─── STATS ROW ─── */
-    .stats-top {
-      display: flex; gap: 12px; margin-bottom: 32px; flex-wrap: wrap; justify-content: center;
-      opacity: 0; animation: fadeUp .5s .3s ease forwards;
-    }
-    .stat-pill {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 100px; padding: 8px 18px;
-      display: flex; align-items: center; gap: 8px;
-      font-size: .82rem; backdrop-filter: blur(8px);
-      transition: border-color .3s, transform .3s;
-    }
-    .stat-pill:hover { border-color: rgba(167,139,250,.4); transform: translateY(-2px); }
-    .stat-pill .val {
-      font-family: 'Syne', sans-serif; font-weight: 700; font-size: .95rem;
-      background: linear-gradient(90deg, var(--glow), var(--hot));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-    .stat-pill .lbl { color: var(--muted); }
-
-    /* ─── HEADLINE ─── */
-    h1 {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(2.4rem, 7vw, 4.2rem);
-      font-weight: 800; line-height: 1.08;
-      text-align: center; max-width: 660px;
-      margin-bottom: 18px;
-      opacity: 0; animation: fadeUp .6s .4s ease forwards;
-    }
-    h1 em {
-      font-style: normal;
-      background: linear-gradient(95deg, var(--glow) 0%, var(--pink) 60%, var(--hot) 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-
-    /* ─── SUB ─── */
-    .sub {
-      font-size: clamp(.95rem, 2.2vw, 1.1rem);
-      color: var(--muted); text-align: center;
-      max-width: 420px; line-height: 1.7;
-      margin-bottom: 36px;
-      opacity: 0; animation: fadeUp .6s .5s ease forwards;
-    }
-    .sub strong { color: var(--text); }
-
-    /* ─── SOCIAL PROOF ─── */
-    .proof {
-      display: flex; align-items: center; gap: 14px;
-      margin-bottom: 32px; flex-wrap: wrap; justify-content: center;
-      opacity: 0; animation: fadeUp .6s .6s ease forwards;
-    }
-    .avatars { display: flex; }
-    .avatars span {
-      width: 36px; height: 36px; border-radius: 50%;
-      border: 2.5px solid var(--bg);
-      display: flex; align-items: center; justify-content: center;
-      font-size: .72rem; font-weight: 700;
-      margin-left: -10px;
-      transition: transform .2s;
-    }
-    .avatars span:first-child { margin-left: 0; }
-    .avatars span:hover { transform: scale(1.15) translateY(-3px); z-index: 2; }
+    .avatars{display:flex}
+    .avatars span{width:30px;height:30px;border-radius:50%;border:2px solid var(--bg);display:flex;align-items:center;justify-content:center;font-size:.63rem;font-weight:700;margin-left:-8px}
+    .avatars span:first-child{margin-left:0}
     .a1{background:linear-gradient(135deg,#7c3aed,#ec4899)}
     .a2{background:linear-gradient(135deg,#ec4899,#f97316)}
     .a3{background:linear-gradient(135deg,#06b6d4,#7c3aed)}
     .a4{background:linear-gradient(135deg,#f59e0b,#ec4899)}
     .a5{background:linear-gradient(135deg,#10b981,#06b6d4)}
-    .proof-txt { font-size: .84rem; color: var(--muted); line-height: 1.45; }
-    .proof-txt strong { color: var(--text); }
-    .stars { color: #fbbf24; font-size: .9rem; letter-spacing: 1px; }
+    .proof-txt{font-size:.76rem;color:var(--muted);line-height:1.4}
+    .proof-txt strong{color:var(--text)}
+    .stars{color:#fbbf24;font-size:.8rem}
 
-    /* ─── CTA BUTTON ─── */
-    .cta-section {
-      display: flex; flex-direction: column; align-items: center; gap: 14px;
-      margin-bottom: 28px;
-      opacity: 0; animation: fadeUp .6s .75s ease forwards;
+    /* STATS */
+    .stats{
+      display:flex;gap:8px;flex-wrap:wrap;justify-content:center;
+      margin-bottom:20px;
+      opacity:0;animation:fadeUp .5s .52s ease forwards;
     }
+    .stat-pill{
+      background:var(--card);border:1px solid var(--border);
+      border-radius:100px;padding:6px 14px;
+      display:flex;align-items:center;gap:6px;
+      font-size:.74rem;backdrop-filter:blur(8px);
+    }
+    .stat-pill .val{font-family:'Syne',sans-serif;font-weight:700;font-size:.84rem;background:linear-gradient(90deg,var(--glow),var(--hot));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .stat-pill .lbl{color:var(--muted)}
 
-    .cta {
-      position: relative; overflow: hidden;
-      display: inline-flex; align-items: center; gap: 14px;
-      background: linear-gradient(115deg, var(--purple) 0%, var(--pink) 100%);
-      color: #fff; text-decoration: none;
-      font-family: 'Syne', sans-serif; font-weight: 800;
-      font-size: 1.12rem; letter-spacing: .02em;
-      padding: 20px 44px; border-radius: 100px;
-      box-shadow: 0 0 0 0 rgba(124,58,237,.6);
-      animation: ctaPulse 2.5s ease-in-out infinite;
-      transition: transform .2s, box-shadow .2s;
-      white-space: nowrap;
+    /* TRUST */
+    .trust{
+      display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center;
+      margin-bottom:22px;
+      opacity:0;animation:fadeUp .5s .58s ease forwards;
     }
-    .cta::before {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(115deg, rgba(255,255,255,.15) 0%, transparent 60%);
-      border-radius: inherit;
-    }
-    .cta::after {
-      content: ''; position: absolute;
-      top: -50%; left: -60%; width: 40%; height: 200%;
-      background: rgba(255,255,255,.12);
-      transform: skewX(-20deg);
-      animation: shine 3.5s ease-in-out infinite;
-    }
-    .cta:hover {
-      transform: translateY(-4px) scale(1.04);
-      box-shadow: 0 20px 60px rgba(124,58,237,.5), 0 0 120px rgba(236,72,153,.25);
-      animation: none;
-    }
-    .cta:active { transform: scale(.97); }
+    .trust-item{display:flex;align-items:center;gap:6px;font-size:.72rem;color:var(--muted)}
+    .t-sep{width:3px;height:3px;background:var(--muted);border-radius:50%;opacity:.3}
 
-    @keyframes ctaPulse {
-      0%,100% { box-shadow: 0 0 0 0 rgba(124,58,237,.5), 0 8px 40px rgba(124,58,237,.35); }
-      50%      { box-shadow: 0 0 0 12px rgba(124,58,237,.0), 0 8px 60px rgba(236,72,153,.4); }
+    /* FEATURES — 3 col grid */
+    .features{
+      display:grid;grid-template-columns:repeat(3,1fr);
+      gap:8px;width:100%;max-width:420px;
+      opacity:0;animation:fadeUp .5s .64s ease forwards;
     }
-    @keyframes shine {
-      0%   { left: -60%; }
-      100% { left: 130%; }
+    .feat-card{
+      background:var(--card);border:1px solid var(--border);
+      border-radius:14px;padding:14px 10px;
+      display:flex;flex-direction:column;align-items:center;
+      gap:7px;text-align:center;backdrop-filter:blur(8px);
+      transition:border-color .3s,transform .3s;
     }
+    .feat-card:hover{border-color:rgba(167,139,250,.3);transform:translateY(-2px)}
+    .feat-icon{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:.95rem}
+    .fi-1{background:linear-gradient(135deg,rgba(124,58,237,.45),rgba(167,139,250,.2))}
+    .fi-2{background:linear-gradient(135deg,rgba(236,72,153,.45),rgba(244,114,182,.2))}
+    .fi-3{background:linear-gradient(135deg,rgba(74,222,128,.35),rgba(16,185,129,.15))}
+    .feat-title{font-weight:700;font-size:.7rem;color:var(--text);line-height:1.3}
+    .feat-sub{color:var(--muted);font-size:.62rem;line-height:1.3}
 
-    .cta-icon {
-      width: 30px; height: 30px; border-radius: 50%;
-      background: rgba(255,255,255,.22);
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; transition: transform .2s;
+    /* LIVE POPUP */
+    .live-activity{
+      position:fixed;bottom:18px;left:14px;z-index:50;
+      background:rgba(12,9,22,.93);border:1px solid var(--border);
+      border-radius:13px;padding:10px 13px;
+      display:flex;align-items:center;gap:9px;
+      backdrop-filter:blur(16px);box-shadow:0 6px 24px rgba(0,0,0,.5);
+      max-width:215px;animation:popIn .4s 3s ease both;font-size:.73rem;
     }
-    .cta:hover .cta-icon { transform: translateX(5px); }
+    .live-icon{width:32px;height:32px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,#f97316,#ec4899);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700}
+    .live-msg{line-height:1.35;color:var(--text)}
+    .live-msg span{color:var(--muted);font-size:.65rem}
+    .live-dot-green{width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0;animation:pulse 1.5s infinite}
+    @keyframes popIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 
-    /* ─── CTA MICRO-COPY ─── */
-    .micro {
-      display: flex; align-items: center; gap: 16px;
-      flex-wrap: wrap; justify-content: center;
-    }
-    .micro-item {
-      display: flex; align-items: center; gap: 5px;
-      font-size: .78rem; color: var(--muted);
-    }
-    .micro-item svg { opacity: .7; }
-    .micro-sep { width: 3px; height: 3px; background: var(--muted); border-radius: 50%; opacity: .4; }
+    /* ANIMATIONS */
+    @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
 
-    /* ─── TRUST BADGES ─── */
-    .trust {
-      display: flex; align-items: center; gap: 20px;
-      flex-wrap: wrap; justify-content: center;
-      margin-bottom: 48px;
-      opacity: 0; animation: fadeUp .6s .9s ease forwards;
+    /* ═══ MOBILE FINE-TUNE ═══ */
+    @media(max-width:480px){
+      .urgency-bar{font-size:.67rem;padding:7px 12px}
+      .hero{padding:34px 16px 28px}
+      .live-activity{display:none}
+      .t-sep{display:none}
+      .trust{gap:10px}
     }
-    .trust-item {
-      display: flex; align-items: center; gap: 7px;
-      font-size: .79rem; color: var(--muted);
-    }
-    .t-sep { width: 3px; height: 3px; background: var(--muted); border-radius: 50%; opacity: .35; }
-
-    /* ─── FEATURE CARDS ─── */
-    .features {
-      display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
-      max-width: 500px; width: 100%;
-      margin-bottom: 32px;
-      opacity: 0; animation: fadeUp .6s .85s ease forwards;
-    }
-    .feat-card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 16px; padding: 16px 20px;
-      display: flex; align-items: center; gap: 12px;
-      flex: 1; min-width: 140px;
-      backdrop-filter: blur(8px);
-      transition: border-color .3s, transform .3s, box-shadow .3s;
-    }
-    .feat-card:hover {
-      border-color: rgba(167,139,250,.35);
-      transform: translateY(-3px);
-      box-shadow: 0 8px 32px rgba(124,58,237,.2);
-    }
-    .feat-icon {
-      width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.1rem;
-    }
-    .fi-1 { background: linear-gradient(135deg, rgba(124,58,237,.4), rgba(167,139,250,.2)); }
-    .fi-2 { background: linear-gradient(135deg, rgba(236,72,153,.4), rgba(244,114,182,.2)); }
-    .fi-3 { background: linear-gradient(135deg, rgba(251,191,36,.35), rgba(245,158,11,.2)); }
-    .feat-text { font-size: .8rem; line-height: 1.45; }
-    .feat-title { font-weight: 600; color: var(--text); margin-bottom: 2px; }
-    .feat-sub { color: var(--muted); font-size: .74rem; }
-
-
-    /* ─── LIVE ACTIVITY ─── */
-    .live-activity {
-      position: fixed; bottom: 24px; left: 24px; z-index: 50;
-      background: rgba(15,12,25,.92); border: 1px solid var(--border);
-      border-radius: 14px; padding: 12px 16px;
-      display: flex; align-items: center; gap: 10px;
-      backdrop-filter: blur(16px);
-      box-shadow: 0 8px 32px rgba(0,0,0,.4);
-      max-width: 240px;
-      animation: popIn .4s 3s ease both;
-      font-size: .8rem;
-    }
-    .live-icon {
-      width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
-      background: linear-gradient(135deg,#f97316,#ec4899);
-      display: flex; align-items: center; justify-content: center;
-      font-size: .8rem; font-weight: 700;
-    }
-    .live-msg { line-height: 1.4; color: var(--text); }
-    .live-msg span { color: var(--muted); font-size: .73rem; }
-    .live-dot-green {
-      width: 7px; height: 7px; border-radius: 50%;
-      background: #4ade80; flex-shrink: 0;
-      animation: pulse 1.5s infinite;
-    }
-    @keyframes popIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
-
-    /* ─── COUNTER ANIMATION ─── */
-    .count-up { display: inline-block; }
-
-    /* ─── ANIMATIONS ─── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes pulse {
-      0%,100%{opacity:1;transform:scale(1)}
-      50%{opacity:.4;transform:scale(.7)}
+    /* tiny phones */
+    @media(max-width:360px){
+      h1{font-size:1.8rem}
+      .cta{font-size:.9rem;padding:15px 18px}
+      .badge{font-size:.67rem;padding:5px 13px}
     }
 
-    /* ─── MOBILE ─── */
-    @media (max-width: 500px) {
-      h1 { font-size: 2.1rem; }
-      .cta { font-size: 1rem; padding: 18px 32px; }
-      .stats-top { gap: 8px; }
-      .stat-pill { padding: 7px 13px; }
-      .live-activity { display: none; }
-      .trust { gap: 12px; }
-      .t-sep { display: none; }
-      .features { gap: 8px; }
-      .feat-card { min-width: 120px; padding: 12px 14px; }
+    /* ═══ DESKTOP ═══ */
+    @media(min-width:768px){
+      .hero{justify-content:center;padding:80px 40px 60px}
+      .brand{margin-top:0;margin-bottom:16px}
+      .badge{margin-bottom:22px}
+      h1{font-size:clamp(3rem,5vw,4.2rem);margin-bottom:16px}
+      .sub{font-size:1.05rem;margin-bottom:28px;max-width:420px}
+      .cta-wrap{margin-bottom:32px}
+      .cta{font-size:1.1rem;padding:20px 40px}
+      .proof{margin-bottom:24px}
+      .stats{margin-bottom:24px}
+      .trust{margin-bottom:28px}
+      .features{max-width:500px;gap:12px}
+      .feat-card{padding:16px 12px;border-radius:16px}
+      .feat-title{font-size:.78rem}
+      .feat-sub{font-size:.68rem}
+      .live-activity{display:flex}
     }
   </style>
 </head>
 <body>
 
-  <!-- AMBIENT -->
-  <div class="bg-layer"></div>
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
+<div class="bg-layer"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="particles" id="particles"></div>
 
-  <!-- PARTICLES -->
-  <div class="particles" id="particles"></div>
+<div class="urgency-bar">
+  <span class="live-count">
+    <span class="live-dot"></span>
+    <span id="viewers">34</span> personas viendo esto ahora
+  </span>
+  &nbsp;·&nbsp; Acceso especial activo
+</div>
 
-  <!-- TOP URGENCY BAR -->
-  <div class="urgency-bar">
-    <span class="live-count">
-      <span class="live-dot"></span>
-      <span id="viewers">34</span> personas están viendo esto ahora mismo
-    </span>
-    &nbsp;·&nbsp; Acceso especial activo por tiempo limitado
+<div class="hero">
+
+  <div class="brand">WorldKlox</div>
+
+  <div class="badge">
+    <span class="badge-dot"></span>
+    Plataforma #1 para latinos en USA
   </div>
 
-  <!-- MAIN -->
-  <div class="page">
+  <h1>Tu cuenta merece<br><em>proyectar autoridad</em></h1>
 
-    <div class="brand">WorldKlox</div>
+  <p class="sub">
+    Lo que usan <strong>creadores y cuentas latinas</strong>
+    en USA para construir presencia digital real.
+  </p>
 
-    <!-- BADGE -->
-    <div class="badge">
-      <span class="badge-dot"></span>
-      Plataforma #1 para latinos en USA
-    </div>
-
-    <!-- STATS ARRIBA -->
-    <div class="stats-top">
-      <div class="stat-pill">
-        <span class="val"><span class="count-up" data-target="12000" data-suffix="+">0</span></span>
-        <span class="lbl">cuentas activas</span>
-      </div>
-      <div class="stat-pill">
-        <span class="val">98%</span>
-        <span class="lbl">satisfacción</span>
-      </div>
-      <div class="stat-pill">
-        <span class="val">48h</span>
-        <span class="lbl">entrega</span>
-      </div>
-    </div>
-
-    <!-- HEADLINE -->
-    <h1>Tu negocio merece<br><em>proyectar autoridad</em></h1>
-
-    <!-- SUB -->
-    <p class="sub">
-      La estrategia que usan los <strong>negocios y creadores latinos</strong>
-      en USA para construir presencia digital real y ser tomados en serio.
-    </p>
-
-    <!-- SOCIAL PROOF -->
-    <div class="proof">
-      <div class="avatars">
-        <span class="a1">MR</span>
-        <span class="a2">JL</span>
-        <span class="a3">AS</span>
-        <span class="a4">KP</span>
-        <span class="a5">DV</span>
-      </div>
-      <div class="proof-txt">
-        <div class="stars">★★★★★</div>
-        <strong>+12,000 latinos</strong> ya fortalecieron su presencia digital
-      </div>
-    </div>
-
-    <!-- CTA PRINCIPAL -->
-    <div class="cta-section">
-      <a class="cta" href="https://www.viralizame.com" target="_blank" rel="noopener">
-        Quiero proyectar autoridad
-        <span class="cta-icon">
-          <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
-            <path d="M2 7.5h11M8 2.5l5 5-5 5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
-      </a>
-
-      <!-- MICRO-COPY -->
-      <div class="micro">
-        <div class="micro-item">
-          <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
-            <circle cx="6.5" cy="6.5" r="5.5" stroke="#4ade80" stroke-width="1.4"/>
-            <path d="M4 6.5l2 2 3-3" stroke="#4ade80" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <span>Acceso inmediato</span>
-        </div>
-        <span class="micro-sep"></span>
-        <div class="micro-item">
-          <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
-            <circle cx="6.5" cy="6.5" r="5.5" stroke="#4ade80" stroke-width="1.4"/>
-            <path d="M4 6.5l2 2 3-3" stroke="#4ade80" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <span>Sin compromisos</span>
-        </div>
-        <span class="micro-sep"></span>
-        <div class="micro-item">
-          <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
-            <circle cx="6.5" cy="6.5" r="5.5" stroke="#4ade80" stroke-width="1.4"/>
-            <path d="M4 6.5l2 2 3-3" stroke="#4ade80" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <span>100% seguro</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- FEATURE CARDS -->
-    <div class="features">
-      <div class="feat-card">
-        <div class="feat-icon fi-1">🚀</div>
-        <div class="feat-text">
-          <div class="feat-title">Presencia inmediata</div>
-          <div class="feat-sub">Visible donde importa</div>
-        </div>
-      </div>
-      <div class="feat-card">
-        <div class="feat-icon fi-2">💎</div>
-        <div class="feat-text">
-          <div class="feat-title">Autoridad de marca</div>
-          <div class="feat-sub">Genera confianza real</div>
-        </div>
-      </div>
-      <div class="feat-card">
-        <div class="feat-icon fi-3">⚡</div>
-        <div class="feat-text">
-          <div class="feat-title">Entrega 24–48h</div>
-          <div class="feat-sub">Sin esperas</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- TRUST ROW -->
-    <div class="trust">
-      <div class="trust-item">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-          <path d="M7 1.5L8.5 5H12l-2.8 2.1 1 3.4L7 8.6 3.8 10.5l1-3.4L2 5h3.5L7 1.5z" fill="#a78bfa"/>
+  <!-- CTA — visible sin scroll -->
+  <div class="cta-wrap">
+    <a class="cta" href="https://www.viralizame.com" target="_blank" rel="noopener">
+      Quiero proyectar autoridad
+      <span class="cta-icon">
+        <svg width="13" height="13" viewBox="0 0 15 15" fill="none">
+          <path d="M2 7.5h11M8 2.5l5 5-5 5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        Resultados comprobados
+      </span>
+    </a>
+    <div class="micro">
+      <div class="micro-item">
+        <svg width="11" height="11" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="#4ade80" stroke-width="1.4"/><path d="M4 6.5l2 2 3-3" stroke="#4ade80" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Acceso inmediato</span>
       </div>
-      <span class="t-sep"></span>
-      <div class="trust-item">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-          <path d="M7 1.5c0 0-4.5 2-4.5 5.5 0 2.5 2 4.5 4.5 4.5s4.5-2 4.5-4.5C11.5 3.5 7 1.5 7 1.5z" stroke="#a78bfa" stroke-width="1.4" stroke-linejoin="round"/>
-        </svg>
-        Soporte en español
+      <span class="micro-sep"></span>
+      <div class="micro-item">
+        <svg width="11" height="11" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="#4ade80" stroke-width="1.4"/><path d="M4 6.5l2 2 3-3" stroke="#4ade80" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Sin contratos</span>
       </div>
-      <span class="t-sep"></span>
-      <div class="trust-item">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-          <rect x="2" y="5" width="10" height="7" rx="1.5" stroke="#a78bfa" stroke-width="1.4"/>
-          <path d="M4.5 5V4a2.5 2.5 0 015 0v1" stroke="#a78bfa" stroke-width="1.4" stroke-linecap="round"/>
-        </svg>
-        Pago 100% seguro
-      </div>
-      <span class="t-sep"></span>
-      <div class="trust-item">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-          <circle cx="7" cy="7" r="5.5" stroke="#a78bfa" stroke-width="1.4"/>
-          <path d="M7 4v3l2 1.5" stroke="#a78bfa" stroke-width="1.4" stroke-linecap="round"/>
-        </svg>
-        Entrega en 24–48h
+      <span class="micro-sep"></span>
+      <div class="micro-item">
+        <svg width="11" height="11" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="#4ade80" stroke-width="1.4"/><path d="M4 6.5l2 2 3-3" stroke="#4ade80" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>100% seguro</span>
       </div>
     </div>
-
-
   </div>
 
-  <!-- LIVE ACTIVITY POPUP -->
-  <div class="live-activity" id="liveBox">
-    <div class="live-icon">SR</div>
-    <div class="live-msg">
-      <strong>Sofia R.</strong> acaba de activar su plan
-      <br><span>hace 2 minutos · Los Ángeles</span>
+  <!-- SOCIAL PROOF -->
+  <div class="proof">
+    <div class="avatars">
+      <span class="a1">MR</span><span class="a2">JL</span><span class="a3">AS</span>
+      <span class="a4">KP</span><span class="a5">DV</span>
     </div>
-    <div class="live-dot-green"></div>
+    <div class="proof-txt">
+      <div class="stars">★★★★★</div>
+      <strong>+12,000 latinos</strong> ya fortalecieron su presencia
+    </div>
   </div>
 
-  <script>
-    // ── Partículas flotantes ──
-    const container = document.getElementById('particles');
-    for (let i = 0; i < 25; i++) {
-      const p = document.createElement('div');
-      p.className = 'particle';
-      const size = Math.random() * 3 + 1;
-      p.style.cssText = `
-        width:${size}px; height:${size}px;
-        left:${Math.random()*100}%;
-        bottom:${Math.random()*20}%;
-        animation-duration:${8+Math.random()*12}s;
-        animation-delay:${Math.random()*10}s;
-        background:${Math.random()>.5?'#a78bfa':'#ec4899'};
-        opacity:0;
-      `;
-      container.appendChild(p);
-    }
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat-pill">
+      <span class="val"><span class="count-up" data-target="12000" data-suffix="+">0</span></span>
+      <span class="lbl">cuentas activas</span>
+    </div>
+    <div class="stat-pill">
+      <span class="val">98%</span>
+      <span class="lbl">satisfacción</span>
+    </div>
+    <div class="stat-pill">
+      <span class="val">#1</span>
+      <span class="lbl">latinos USA</span>
+    </div>
+  </div>
 
-    // ── Counter animado ──
-    document.querySelectorAll('.count-up').forEach(el => {
-      const target = parseInt(el.dataset.target);
-      const suffix = el.dataset.suffix || '';
-      const duration = 2000;
-      const step = target / (duration / 16);
-      let current = 0;
-      const timer = setInterval(() => {
-        current = Math.min(current + step, target);
-        if (current >= 10000) {
-          el.textContent = Math.floor(current/1000) + 'K' + suffix;
-        } else {
-          el.textContent = Math.floor(current).toLocaleString() + suffix;
-        }
-        if (current >= target) clearInterval(timer);
-      }, 16);
-    });
+  <!-- TRUST -->
+  <div class="trust">
+    <div class="trust-item">
+      <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M7 1.5L8.5 5H12l-2.8 2.1 1 3.4L7 8.6 3.8 10.5l1-3.4L2 5h3.5L7 1.5z" fill="#a78bfa"/></svg>
+      Resultados comprobados
+    </div>
+    <span class="t-sep"></span>
+    <div class="trust-item">
+      <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M7 1.5c0 0-4.5 2-4.5 5.5 0 2.5 2 4.5 4.5 4.5s4.5-2 4.5-4.5C11.5 3.5 7 1.5 7 1.5z" stroke="#a78bfa" stroke-width="1.4" stroke-linejoin="round"/></svg>
+      Soporte en español
+    </div>
+    <span class="t-sep"></span>
+    <div class="trust-item">
+      <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><rect x="2" y="5" width="10" height="7" rx="1.5" stroke="#a78bfa" stroke-width="1.4"/><path d="M4.5 5V4a2.5 2.5 0 015 0v1" stroke="#a78bfa" stroke-width="1.4" stroke-linecap="round"/></svg>
+      Pago 100% seguro
+    </div>
+    <span class="t-sep"></span>
+    <div class="trust-item">
+      <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="#a78bfa" stroke-width="1.4"/><path d="M4 7l2 2 4-3" stroke="#a78bfa" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Miles de reseñas ★★★★★
+    </div>
+  </div>
 
-    // ── Contador de viewers ──
-    const viewersEl = document.getElementById('viewers');
-    let v = 34;
-    setInterval(() => {
-      v += Math.random() > .5 ? 1 : -1;
-      v = Math.max(22, Math.min(58, v));
-      viewersEl.textContent = Math.round(v);
-    }, 4000);
+  <!-- FEATURES -->
+  <div class="features">
+    <div class="feat-card">
+      <div class="feat-icon fi-1">🚀</div>
+      <div class="feat-title">Presencia real</div>
+      <div class="feat-sub">Visible donde importa</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon fi-2">💎</div>
+      <div class="feat-title">Autoridad digital</div>
+      <div class="feat-sub">Genera confianza</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon fi-3">✓</div>
+      <div class="feat-title">Proceso probado</div>
+      <div class="feat-sub">Sin riesgos</div>
+    </div>
+  </div>
 
-    // ── Rotación actividad en vivo ──
-    const activities = [
-      { initials:'SR', name:'Sofia R.',    action:'activó su presencia digital', city:'Los Ángeles', time:'2 min' },
-      { initials:'JM', name:'Juan M.',     action:'fortaleció su perfil',        city:'Houston',     time:'5 min' },
-      { initials:'LP', name:'Laura P.',    action:'acaba de unirse',             city:'Nueva York',  time:'1 min' },
-      { initials:'DR', name:'Diego R.',    action:'activó su plan',              city:'Chicago',     time:'3 min' },
-      { initials:'AM', name:'Ana M.',      action:'vio resultados hoy',          city:'Miami',       time:'8 min' },
-      { initials:'CB', name:'Carlos B.',   action:'acaba de unirse',             city:'Dallas',      time:'4 min' },
-    ];
-    const colors = [
-      'linear-gradient(135deg,#f97316,#ec4899)',
-      'linear-gradient(135deg,#7c3aed,#06b6d4)',
-      'linear-gradient(135deg,#10b981,#7c3aed)',
-      'linear-gradient(135deg,#f59e0b,#ef4444)',
-      'linear-gradient(135deg,#ec4899,#f97316)',
-      'linear-gradient(135deg,#06b6d4,#7c3aed)',
-    ];
-    let idx = 0;
-    const box = document.getElementById('liveBox');
-    setInterval(() => {
-      idx = (idx + 1) % activities.length;
-      const a = activities[idx];
-      box.style.opacity = '0';
-      box.style.transform = 'translateY(10px)';
-      box.style.transition = 'opacity .3s, transform .3s';
-      setTimeout(() => {
-        box.querySelector('.live-icon').textContent = a.initials;
-        box.querySelector('.live-icon').style.background = colors[idx];
-        box.querySelector('.live-msg').innerHTML =
-          `<strong>${a.name}</strong> ${a.action}<br><span>hace ${a.time} · ${a.city}</span>`;
-        box.style.opacity = '1';
-        box.style.transform = 'translateY(0)';
-      }, 350);
-    }, 5000);
-  </script>
+</div>
+
+<!-- LIVE POPUP -->
+<div class="live-activity" id="liveBox">
+  <div class="live-icon">SR</div>
+  <div class="live-msg">
+    <strong>Sofia R.</strong> acaba de activar su plan
+    <br><span>hace 2 min · Los Ángeles</span>
+  </div>
+  <div class="live-dot-green"></div>
+</div>
+
+<script>
+  // Particles
+  const pc=document.getElementById('particles');
+  for(let i=0;i<18;i++){
+    const p=document.createElement('div');p.className='particle';
+    const s=Math.random()*2.5+1;
+    p.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;bottom:${Math.random()*15}%;animation-duration:${10+Math.random()*10}s;animation-delay:${Math.random()*10}s;background:${Math.random()>.5?'#a78bfa':'#ec4899'};`;
+    pc.appendChild(p);
+  }
+
+  // Counter
+  document.querySelectorAll('.count-up').forEach(el=>{
+    const target=+el.dataset.target,suffix=el.dataset.suffix||'';
+    const step=target/(2000/16);let cur=0;
+    const t=setInterval(()=>{
+      cur=Math.min(cur+step,target);
+      el.textContent=cur>=10000?Math.floor(cur/1000)+'K'+suffix:Math.floor(cur).toLocaleString()+suffix;
+      if(cur>=target)clearInterval(t);
+    },16);
+  });
+
+  // Viewers
+  const vEl=document.getElementById('viewers');let v=34;
+  setInterval(()=>{v+=Math.random()>.5?1:-1;v=Math.max(22,Math.min(58,v));vEl.textContent=Math.round(v);},4000);
+
+  // Live activity
+  const acts=[
+    {i:'SR',n:'Sofia R.',  a:'activó su presencia', c:'Los Ángeles',t:'2 min'},
+    {i:'JM',n:'Juan M.',   a:'fortaleció su perfil',c:'Houston',    t:'5 min'},
+    {i:'LP',n:'Laura P.',  a:'acaba de unirse',     c:'Nueva York', t:'1 min'},
+    {i:'DR',n:'Diego R.',  a:'activó su plan',      c:'Chicago',    t:'3 min'},
+    {i:'AM',n:'Ana M.',    a:'vio resultados hoy',  c:'Miami',      t:'8 min'},
+    {i:'CB',n:'Carlos B.', a:'acaba de unirse',     c:'Dallas',     t:'4 min'},
+  ];
+  const cols=['linear-gradient(135deg,#f97316,#ec4899)','linear-gradient(135deg,#7c3aed,#06b6d4)','linear-gradient(135deg,#10b981,#7c3aed)','linear-gradient(135deg,#f59e0b,#ef4444)','linear-gradient(135deg,#ec4899,#f97316)','linear-gradient(135deg,#06b6d4,#7c3aed)'];
+  let idx=0;const box=document.getElementById('liveBox');
+  setInterval(()=>{
+    idx=(idx+1)%acts.length;const a=acts[idx];
+    box.style.opacity='0';box.style.transform='translateY(10px)';box.style.transition='opacity .3s,transform .3s';
+    setTimeout(()=>{
+      box.querySelector('.live-icon').textContent=a.i;
+      box.querySelector('.live-icon').style.background=cols[idx];
+      box.querySelector('.live-msg').innerHTML=`<strong>${a.n}</strong> ${a.a}<br><span>hace ${a.t} · ${a.c}</span>`;
+      box.style.opacity='1';box.style.transform='translateY(0)';
+    },350);
+  },5000);
+</script>
 </body>
 </html>
