@@ -157,7 +157,7 @@ src="https://www.facebook.com/tr?id=1251400936528512&ev=PageView&noscript=1"
     h1{
       font-family:'Syne',sans-serif;
       /* 2rem on mobile → 2 tight lines; scales to 4rem on desktop */
-      font-size:clamp(1.75rem,6.8vw,4rem);
+      font-size:clamp(1.65rem,6.5vw,4rem);
       font-weight:800;
       line-height:1.08;
       text-align:center;
@@ -187,7 +187,7 @@ src="https://www.facebook.com/tr?id=1251400936528512&ev=PageView&noscript=1"
 
     /* ── CTA BUTTON ─────────────────────────────────── */
     .cta-wrap{
-      width:90%;max-width:400px;
+      width:92%;max-width:420px;
       margin:0 auto 0;
       opacity:0;animation:up .5s .29s ease forwards;
     }
@@ -199,7 +199,7 @@ src="https://www.facebook.com/tr?id=1251400936528512&ev=PageView&noscript=1"
       background:linear-gradient(120deg,#5b21b6 0%,#7c3aed 40%,#db2777 100%);
       color:#fff;text-decoration:none;
       font-family:'Syne',sans-serif;font-weight:800;
-      font-size:1.05rem;letter-spacing:.005em;white-space:nowrap;
+      font-size:.95rem;letter-spacing:.01em;white-space:nowrap;padding:0 20px;
       border-radius:14px;
       text-align:center;
       /* glow ring pulse */
@@ -244,14 +244,14 @@ src="https://www.facebook.com/tr?id=1251400936528512&ev=PageView&noscript=1"
     /* ── TRUST STRIP (below CTA) ────────────────────── */
     .trust-strip{
       display:flex;align-items:center;justify-content:center;
-      flex-wrap:wrap;gap:5px 10px;
+      flex-wrap:nowrap;gap:3px 8px;
       margin-top:14px;margin-bottom:8px;
       opacity:0;animation:up .4s .35s ease forwards;
     }
     .ts-item{
-      display:inline-flex;align-items:center;gap:5px;
-      font-size:.7rem;font-weight:500;color:var(--muted);
-      letter-spacing:.01em;
+      display:inline-flex;align-items:center;gap:4px;
+      font-size:.64rem;font-weight:500;color:var(--muted);
+      letter-spacing:.005em;white-space:nowrap;
     }
     .ts-check{color:var(--green)}
     .ts-dot{
@@ -288,9 +288,9 @@ src="https://www.facebook.com/tr?id=1251400936528512&ev=PageView&noscript=1"
     .a3{background:linear-gradient(135deg,#06b6d4,#7c3aed)}
     .a4{background:linear-gradient(135deg,#f59e0b,#ec4899)}
     .a5{background:linear-gradient(135deg,#10b981,#06b6d4)}
-    .proof-txt{font-size:.75rem;color:var(--text-2);line-height:1.45}
+    .proof-txt{font-size:.73rem;color:var(--text-2);line-height:1.4}
     .proof-txt strong{color:var(--text);font-weight:600}
-    .proof-sub{font-size:.67rem;color:var(--muted);margin-top:3px}
+    .proof-sub{font-size:.63rem;color:var(--muted);margin-top:2px}
     .stars{color:#fbbf24;font-size:.78rem;letter-spacing:.04em;margin-bottom:2px}
 
     /* ── STATS PILLS ────────────────────────────────── */
@@ -303,10 +303,11 @@ src="https://www.facebook.com/tr?id=1251400936528512&ev=PageView&noscript=1"
     .stat-pill{
       background:var(--surface);
       border:1px solid var(--border);
-      border-radius:100px;padding:7px 12px;
-      display:flex;align-items:center;gap:5px;
-      font-size:.68rem;
+      border-radius:100px;padding:7px 10px;
+      display:flex;align-items:center;gap:4px;
+      font-size:.65rem;
       flex:1;justify-content:center;
+      white-space:nowrap;
       backdrop-filter:blur(12px);
     }
     .stat-pill .val{
