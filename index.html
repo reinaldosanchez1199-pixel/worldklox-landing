@@ -187,19 +187,19 @@ src="https://www.facebook.com/tr?id=1251400936528512&ev=PageView&noscript=1"
 
     /* ── CTA BUTTON ─────────────────────────────────── */
     .cta-wrap{
-      width:92%;max-width:420px;
+      width:88%;max-width:400px;
       margin:0 auto 0;
       opacity:0;animation:up .5s .29s ease forwards;
     }
     .cta{
-      position:relative;overflow:hidden;
-      display:flex;align-items:center;justify-content:center;gap:12px;
+      position:relative;
+      display:flex;align-items:center;justify-content:center;gap:8px;
       width:100%;height:54px;
       /* richer gradient: deeper purple to vivid pink */
       background:linear-gradient(120deg,#5b21b6 0%,#7c3aed 40%,#db2777 100%);
       color:#fff;text-decoration:none;
-      font-family:'Syne',sans-serif;font-weight:800;
-      font-size:.95rem;letter-spacing:.01em;white-space:nowrap;padding:0 20px;
+      font-family:'Syne',sans-serif;font-weight:700;
+      font-size:.88rem;letter-spacing:.01em;white-space:nowrap;padding:0 16px;
       border-radius:14px;
       text-align:center;
       /* glow ring pulse */
@@ -214,6 +214,7 @@ src="https://www.facebook.com/tr?id=1251400936528512&ev=PageView&noscript=1"
     }
     /* sweep shine */
     .cta::after{
+      clip-path:inset(0 round 14px);
       content:'';position:absolute;
       top:-50%;left:-70%;
       width:40%;height:200%;
@@ -235,7 +236,7 @@ src="https://www.facebook.com/tr?id=1251400936528512&ev=PageView&noscript=1"
       50%    {transform:translateY(-4px)}
     }
     .arrow{
-      width:24px;height:24px;border-radius:50%;
+      width:22px;height:22px;border-radius:50%;flex-shrink:0;
       background:rgba(255,255,255,.18);
       display:flex;align-items:center;justify-content:center;
       flex-shrink:0;transition:transform .2s ease;
