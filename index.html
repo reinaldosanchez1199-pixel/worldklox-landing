@@ -184,7 +184,9 @@ h2{font-family:var(--fh);font-size:clamp(27px,4vw,44px);font-weight:800;letter-s
 /* UGC */
 .ugc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-top:40px}
 .ugc-card{padding:11px}
-.ugc-vid{border-radius:14px;overflow:hidden;background:#000;border:1px solid var(--border);aspect-ratio:9/16;max-height:270px;position:relative}
+.ugc-vid{border-radius:14px;overflow:hidden;background:#000;border:1px solid var(--border);aspect-ratio:9/16;max-height:270px;position:relative;cursor:pointer}
+.yt-play-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--teal));display:flex;align-items:center;justify-content:center;font-size:20px;color:#011408;box-shadow:0 0 0 0 rgba(24,217,98,.4);animation:pr 2.2s ease-in-out infinite;z-index:2;pointer-events:none}
+.yt-facade:hover .yt-play-btn{transform:translate(-50%,-50%) scale(1.1)}
 .ugc-vid video{width:100%;height:100%;object-fit:cover;display:block}
 .ugc-ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:14px;background:linear-gradient(160deg,#0a1e32,#051320)}
 .play-xs{width:40px;height:40px;border-radius:50%;background:rgba(24,217,98,.1);border:1.5px solid rgba(24,217,98,.25);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--green);margin:0 auto 10px}
@@ -504,42 +506,42 @@ footer a:hover{color:var(--muted)}
     <div class="proof-grid rv d2">
 
       <div class="card proof-card">
-        <img src="images/antes-despues-sofia.jpeg" alt="Antes y después perfil modelo Instagram sofia.model"
+        <img src="images/antes-despues-sofia.png.jpeg" alt="Antes y después perfil modelo Instagram sofia.model"
           onerror="this.parentElement.style.background='linear-gradient(135deg,#091724,#051018)';this.style.display='none'">
         <p class="p-label">Modelo &nbsp;·&nbsp; sofia.model</p>
         <div style="text-align:center"><span class="p-badge">De 89 a 28,400 seguidores</span></div>
       </div>
 
       <div class="card proof-card">
-        <img src="images/antes-despues-ricardo.jpeg" alt="Antes y después perfil cantante ricardosinger"
+        <img src="images/antes-despues-ricardo.png.jpeg" alt="Antes y después perfil cantante ricardosinger"
           onerror="this.parentElement.style.background='linear-gradient(135deg,#091724,#051018)';this.style.display='none'">
         <p class="p-label">Cantante &nbsp;·&nbsp; ricardosinger</p>
         <div style="text-align:center"><span class="p-badge">De 104 a 16,700 seguidores</span></div>
       </div>
 
       <div class="card proof-card">
-        <img src="images/antes-despues-josef.jpeg" alt="Antes y después perfil realtor josefriverarealtor"
+        <img src="images/antes-despues-josef.png.jpeg" alt="Antes y después perfil realtor josefriverarealtor"
           onerror="this.parentElement.style.background='linear-gradient(135deg,#091724,#051018)';this.style.display='none'">
         <p class="p-label">Realtor &nbsp;·&nbsp; josefriverarealtor</p>
         <div style="text-align:center"><span class="p-badge">De 412 a 9,766 seguidores</span></div>
       </div>
 
       <div class="card proof-card">
-        <img src="images/antes-despues-chef.jpeg" alt="Antes y después perfil chef chefmiguel"
+        <img src="images/antes-despues-chef.png.jpeg" alt="Antes y después perfil chef chefmiguel"
           onerror="this.parentElement.style.background='linear-gradient(135deg,#091724,#051018)';this.style.display='none'">
         <p class="p-label">Chef &nbsp;·&nbsp; chefmiguel</p>
         <div style="text-align:center"><span class="p-badge">De 234 a 8,943 seguidores</span></div>
       </div>
 
       <div class="card proof-card">
-        <img src="images/antes-despues-naturecraft.jpeg" alt="Antes y después perfil tienda natural NatureCraft"
+        <img src="images/antes-despues-naturecraft.png.jpeg" alt="Antes y después perfil tienda natural NatureCraft"
           onerror="this.parentElement.style.background='linear-gradient(135deg,#091724,#051018)';this.style.display='none'">
         <p class="p-label">Tienda natural &nbsp;·&nbsp; naturecraft</p>
         <div style="text-align:center"><span class="p-badge">De 3,200 a 85,000 seguidores</span></div>
       </div>
 
       <div class="card proof-card">
-        <img src="images/antes-despues-serenityspa.jpeg" alt="Antes y después perfil spa serenityspa"
+        <img src="images/antes-despues-serenityspa.png.jpeg" alt="Antes y después perfil spa serenityspa"
           onerror="this.parentElement.style.background='linear-gradient(135deg,#091724,#051018)';this.style.display='none'">
         <p class="p-label">Spa &nbsp;·&nbsp; serenityspa</p>
         <div style="text-align:center"><span class="p-badge">De 89 a 14,200 seguidores</span></div>
@@ -560,8 +562,9 @@ footer a:hover{color:var(--muted)}
     <div class="ugc-grid rv d2">
 
       <div class="card ugc-card">
-        <div class="ugc-vid">
-          <iframe src="https://www.youtube.com/embed/b9q0K0vMpkQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width:100%;height:100%;position:absolute;top:0;left:0;border-radius:14px;"></iframe>
+        <div class="ugc-vid yt-facade" data-id="b9q0K0vMpkQ">
+          <img src="https://i.ytimg.com/vi/b9q0K0vMpkQ/hqdefault.jpg" alt="Testimonio 1" style="width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0;border-radius:14px;">
+          <div class="yt-play-btn">&#9654;</div>
         </div>
         <div class="ugc-meta">
           <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
@@ -570,8 +573,9 @@ footer a:hover{color:var(--muted)}
       </div>
 
       <div class="card ugc-card">
-        <div class="ugc-vid">
-          <iframe src="https://www.youtube.com/embed/fWdYb7kWH_w" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width:100%;height:100%;position:absolute;top:0;left:0;border-radius:14px;"></iframe>
+        <div class="ugc-vid yt-facade" data-id="fWdYb7kWH_w">
+          <img src="https://i.ytimg.com/vi/fWdYb7kWH_w/hqdefault.jpg" alt="Testimonio 2" style="width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0;border-radius:14px;">
+          <div class="yt-play-btn">&#9654;</div>
         </div>
         <div class="ugc-meta">
           <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
@@ -580,8 +584,9 @@ footer a:hover{color:var(--muted)}
       </div>
 
       <div class="card ugc-card">
-        <div class="ugc-vid">
-          <iframe src="https://www.youtube.com/embed/g2uxsgawS3Y" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width:100%;height:100%;position:absolute;top:0;left:0;border-radius:14px;"></iframe>
+        <div class="ugc-vid yt-facade" data-id="g2uxsgawS3Y">
+          <img src="https://i.ytimg.com/vi/g2uxsgawS3Y/hqdefault.jpg" alt="Testimonio 3" style="width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0;border-radius:14px;">
+          <div class="yt-play-btn">&#9654;</div>
         </div>
         <div class="ugc-meta">
           <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
@@ -590,9 +595,9 @@ footer a:hover{color:var(--muted)}
       </div>
 
       <div class="card ugc-card">
-        <div class="ugc-vid">
-          <div class="ugc-ph">
-          <iframe src="https://www.youtube.com/embed/2aXXqAYfZXY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width:100%;height:100%;position:absolute;top:0;left:0;border-radius:14px;"></iframe>
+        <div class="ugc-vid yt-facade" data-id="2aXXqAYfZXY">
+          <img src="https://i.ytimg.com/vi/2aXXqAYfZXY/hqdefault.jpg" alt="Testimonio 4" style="width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0;border-radius:14px;">
+          <div class="yt-play-btn">&#9654;</div>
         </div>
         <div class="ugc-meta">
           <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
@@ -809,6 +814,21 @@ footer a:hover{color:var(--muted)}
 </div>
 
 <script>
+// YOUTUBE FACADE
+document.querySelectorAll(".yt-facade").forEach(el => {
+  el.addEventListener("click", function() {
+    const id = this.dataset.id;
+    const iframe = document.createElement("iframe");
+    iframe.src = "https://www.youtube.com/embed/" + id + "?autoplay=1&rel=0&modestbranding=1&showinfo=0&controls=1";
+    iframe.frameBorder = "0";
+    iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+    iframe.allowFullscreen = true;
+    iframe.style = "width:100%;height:100%;position:absolute;top:0;left:0;border-radius:14px;";
+    this.innerHTML = "";
+    this.appendChild(iframe);
+  });
+});
+
 // SCROLL REVEAL
 const rvEls = document.querySelectorAll('.rv');
 const rvObs = new IntersectionObserver(es => {
