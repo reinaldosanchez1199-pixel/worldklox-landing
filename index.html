@@ -1006,30 +1006,18 @@ src="https://www.facebook.com/tr?id=1251400936528512&ev=PageView&noscript=1"
 </div>
 
 <script>
-// HERO VIDEO — YouTube Shorts
+// HERO VIDEO — MP4 directo (máxima calidad)
 function loadHeroVideo() {
   const shell = document.getElementById('heroVidShell');
-  const iframe = document.createElement('iframe');
-  iframe.src = 'https://www.youtube.com/embed/NBpn3bySzwk?autoplay=1&rel=0&modestbranding=1&showinfo=0&controls=1&iv_load_policy=3&loop=1&playlist=NBpn3bySzwk';
-  iframe.frameBorder = '0';
-  iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-  iframe.allowFullscreen = true;
-  iframe.style = 'width:100%;height:100%;position:absolute;top:0;left:0;border-radius:26px;';
+  const video = document.createElement('video');
+  video.src = 'videos/video-principal.mp4.mp4';
+  video.controls = true;
+  video.autoplay = true;
+  video.playsinline = true;
+  video.style = 'width:100%;height:100%;position:absolute;top:0;left:0;border-radius:26px;object-fit:cover;background:#000;';
   shell.innerHTML = '';
-  shell.appendChild(iframe);
-}
-
-// HERO VIDEO — YouTube Shorts
-function loadHeroVideo() {
-  const shell = document.getElementById('heroVidShell');
-  const iframe = document.createElement('iframe');
-  iframe.src = 'https://www.youtube.com/embed/NBpn3bySzwk?autoplay=1&rel=0&modestbranding=1&showinfo=0&controls=1&iv_load_policy=3&loop=1&playlist=NBpn3bySzwk';
-  iframe.frameBorder = '0';
-  iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-  iframe.allowFullscreen = true;
-  iframe.style = 'width:100%;height:100%;position:absolute;top:0;left:0;border-radius:26px;';
-  shell.innerHTML = '';
-  shell.appendChild(iframe);
+  shell.appendChild(video);
+  video.play().catch(() => { video.muted = true; video.play(); });
 }
 
 // CARRUSEL MÓVIL
