@@ -244,6 +244,12 @@ h2{font-family:var(--fh);font-size:clamp(27px,4vw,44px);font-weight:800;letter-s
 .offer-tier{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:6px}
 .offer h3{font-family:var(--fh);font-size:20px;font-weight:800;margin-bottom:8px}
 .offer-desc{font-size:13px;color:var(--muted);margin-bottom:18px;line-height:1.6}
+.offer-price{display:flex;align-items:baseline;gap:6px;margin:14px 0 18px}
+.offer-price .amount{font-family:var(--fh);font-size:36px;font-weight:800;color:var(--text)}
+.offer-price .cents{font-family:var(--fh);font-size:20px;font-weight:700;color:var(--text)}
+.offer-price .period{font-size:12px;color:var(--muted);margin-left:2px}
+.feat .offer-price .amount{color:var(--green)}
+.feat .offer-price .cents{color:var(--green)}
 .flist{display:flex;flex-direction:column;gap:9px;margin-bottom:22px}
 .flist li{list-style:none;display:flex;align-items:flex-start;gap:9px;font-size:13.5px;color:#b5ccdf;line-height:1.45}
 .flist li::before{content:'✓';color:var(--green);font-weight:800;font-size:11.5px;flex-shrink:0;margin-top:2px}
@@ -301,23 +307,6 @@ footer a:hover{color:var(--muted)}
   .wa{width:60px;height:60px}
 }
 </style>
-<!-- Meta Pixel -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1251400936528512');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1251400936528512&ev=PageView&noscript=1"
-/></noscript>
-<!-- Fin Meta Pixel -->
 </head>
 <body>
 
@@ -467,7 +456,7 @@ src="https://www.facebook.com/tr?id=1251400936528512&ev=PageView&noscript=1"
       <h1>Tu perfil merece<br>verse <span class="hl">profesional<br>desde el primer vistazo</span></h1>
       <p class="lead">Optimizamos la percepción visual de tu cuenta en Instagram y TikTok para que proyecte autoridad, genere confianza y atraiga la atención correcta desde el primer segundo.</p>
       <div class="ctas">
-        <a class="btn btn-g" href="https://wa.me/18325163196?text=Hola%2C%20quiero%20mejorar%20la%20presencia%20de%20mi%20perfil%20en%20Instagram%20o%20TikTok.">
+        <a class="btn btn-g" onclick="fbq('track','Contact',{content_name:'Hero CTA'})" href="https://wa.me/18325163196?text=Hola%2C%20quiero%20mejorar%20la%20presencia%20de%20mi%20perfil%20en%20Instagram%20o%20TikTok.">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.138.564 4.14 1.545 5.879L.057 23.53a.5.5 0 0 0 .611.611l5.695-1.492A11.955 11.955 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.956 9.956 0 0 1-5.19-1.45l-.37-.22-3.84 1.005 1.025-3.738-.24-.384A9.957 9.957 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
           Quiero mejorar mi perfil ahora
         </a>
@@ -804,13 +793,17 @@ src="https://www.facebook.com/tr?id=1251400936528512&ev=PageView&noscript=1"
         <div class="offer-tier">Starter</div>
         <h3>Opción Inicial</h3>
         <p class="offer-desc">Ideal si estás comenzando o quieres probar una mejora visual básica.</p>
+        <div class="offer-price">
+          <span class="amount">$34</span><span class="cents">.99</span>
+          <span class="period">USD</span>
+        </div>
         <ul class="flist">
           <li>Perfil más atractivo y confiable al instante</li>
           <li>Funciona para Instagram y TikTok</li>
           <li>Proceso directo por WhatsApp</li>
           <li>Resultados en tiempo rápido</li>
         </ul>
-        <a class="btn btn-o" href="https://wa.me/18325163196?text=Hola%2C%20quiero%20la%20Opci%C3%B3n%20Inicial.">Quiero esta opción</a>
+        <a class="btn btn-o" href="https://wa.me/18325163196?text=Hola%2C%20quiero%20la%20Opci%C3%B3n%20Inicial." onclick="fbq('track','Contact',{content_name:'Opcion Inicial'})">Quiero esta opción</a>
         <p style="text-align:center;margin-top:10px;font-size:12px;color:var(--muted2)">¿Prefieres explorar primero? <a href="https://viralizame.com" target="_blank" rel="noopener" style="color:var(--muted);text-decoration:underline">Ver más información</a></p>
       </div>
 
@@ -819,13 +812,17 @@ src="https://www.facebook.com/tr?id=1251400936528512&ev=PageView&noscript=1"
         <div class="offer-tier">Growth</div>
         <h3>Opción Popular</h3>
         <p class="offer-desc">Para perfiles que buscan destacar y verse mejor posicionados.</p>
+        <div class="offer-price">
+          <span class="amount">$84</span><span class="cents">.99</span>
+          <span class="period">USD</span>
+        </div>
         <ul class="flist">
           <li>Más atención desde el primer vistazo</li>
           <li>Tu cuenta se ve más consolidada e importante</li>
           <li>Funciona para Instagram y TikTok</li>
           <li>Atención prioritaria por WhatsApp</li>
         </ul>
-        <a class="btn btn-g" href="https://wa.me/18325163196?text=Hola%2C%20quiero%20la%20Opci%C3%B3n%20Popular.">Quiero mejorar mi perfil ahora</a>
+        <a class="btn btn-g" href="https://wa.me/18325163196?text=Hola%2C%20quiero%20la%20Opci%C3%B3n%20Popular." onclick="fbq('track','Contact',{content_name:'Opcion Popular'})">Quiero mejorar mi perfil ahora</a>
         <p style="text-align:center;margin-top:10px;font-size:12px;color:var(--muted2)">¿Prefieres explorar primero? <a href="https://viralizame.com" target="_blank" rel="noopener" style="color:var(--muted);text-decoration:underline">Ver más información</a></p>
       </div>
 
@@ -833,13 +830,17 @@ src="https://www.facebook.com/tr?id=1251400936528512&ev=PageView&noscript=1"
         <div class="offer-tier">Elite</div>
         <h3>Opción Premium</h3>
         <p class="offer-desc">Presencia visual de nivel premium y primera impresión más poderosa.</p>
+        <div class="offer-price">
+          <span class="amount">$119</span><span class="cents">.99</span>
+          <span class="period">USD</span>
+        </div>
         <ul class="flist">
           <li>Presentación visual de nivel premium</li>
           <li>Ideal para marcas y perfiles personales</li>
           <li>Funciona para Instagram y TikTok</li>
           <li>Seguimiento personalizado</li>
         </ul>
-        <a class="btn btn-o" href="https://wa.me/18325163196?text=Hola%2C%20quiero%20la%20Opci%C3%B3n%20Premium.">Hablar y ver cómo mejora mi perfil</a>
+        <a class="btn btn-o" href="https://wa.me/18325163196?text=Hola%2C%20quiero%20la%20Opci%C3%B3n%20Premium." onclick="fbq('track','Contact',{content_name:'Opcion Premium'})">Hablar y ver cómo mejora mi perfil</a>
         <p style="text-align:center;margin-top:10px;font-size:12px;color:var(--muted2)">¿Prefieres explorar primero? <a href="https://viralizame.com" target="_blank" rel="noopener" style="color:var(--muted);text-decoration:underline">Ver más información</a></p>
       </div>
 
@@ -915,7 +916,7 @@ src="https://www.facebook.com/tr?id=1251400936528512&ev=PageView&noscript=1"
       <div class="kicker">El siguiente paso es tuyo</div>
       <h2>Tu perfil puede transmitir autoridad desde hoy</h2>
       <p>Cada día que esperas es un día que tu competencia avanza. Si sientes que tu perfil no está generando el impacto que merece, este es el momento de cambiarlo.</p>
-      <a class="fcta-btn" href="https://wa.me/18325163196?text=Hola%2C%20quiero%20mejorar%20la%20presencia%20de%20mi%20perfil%20y%20necesito%20m%C3%A1s%20informaci%C3%B3n.">
+      <a class="fcta-btn" onclick="fbq('track','Contact',{content_name:'Final CTA'})" href="https://wa.me/18325163196?text=Hola%2C%20quiero%20mejorar%20la%20presencia%20de%20mi%20perfil%20y%20necesito%20m%C3%A1s%20informaci%C3%B3n.">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.138.564 4.14 1.545 5.879L.057 23.53a.5.5 0 0 0 .611.611l5.695-1.492A11.955 11.955 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.956 9.956 0 0 1-5.19-1.45l-.37-.22-3.84 1.005 1.025-3.738-.24-.384A9.957 9.957 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
         Hablar ahora por WhatsApp
       </a>
