@@ -818,7 +818,9 @@ src="https://www.facebook.com/tr?id=1251400936528512&ev=PageView&noscript=1"
       <div class="card" style="padding:22px 20px"><div style="font-size:22px;margin-bottom:8px">💸</div><h4 style="font-size:14px;margin-bottom:6px">Solo publicidad pagada</h4><p style="font-size:12.5px;color:var(--muted);line-height:1.6">Pagas todos los días — y el efecto se apaga en el momento en que dejas de pagar.</p></div>
       <div class="card" style="padding:22px 20px;border-color:rgba(24,217,98,.4);grid-column:1/-1;background:linear-gradient(135deg,rgba(24,217,98,.06),rgba(0,223,192,.02))"><div style="font-size:22px;margin-bottom:8px">⚡</div><h4 style="font-size:14px;margin-bottom:6px;color:var(--green)">Con WorldKlox</h4><p style="font-size:12.5px;color:var(--muted);line-height:1.6">Pago único, <strong style="color:var(--text)">activación inmediata</strong>, y tu perfil convence por ti las 24/7.</p></div>
     </div>
-    <p class="rv d2" style="text-align:center;font-size:13px;color:var(--green);font-weight:600;margin:-14px auto 30px">🎁 Las tres opciones comienzan con tu prueba GRATIS — escríbenos y te detallamos todo lo que incluye cada una.</p>
+    <div style="text-align:center;margin:-10px 0 18px"><button id="curBtn" onclick="toggleCur()" style="background:rgba(255,255,255,.04);border:1px solid rgba(24,217,98,.35);color:var(--green);font-weight:800;font-size:12.5px;padding:11px 22px;border-radius:50px;cursor:pointer;font-family:inherit">🇨🇴 Ver precios en COP</button></div>
+    <p id="copNoteWk" style="display:none;text-align:center;font-size:12px;color:var(--green);font-weight:600;margin:-6px auto 18px">🇨🇴 Precios en pesos colombianos — válido pagando por métodos locales de Colombia.</p>
+    <p class="rv d2" style="text-align:center;font-size:13px;color:var(--green);font-weight:600;margin:-14px auto 30px">🎁 Las tres opciones comienzan con tu prueba GRATIS — verifica la calidad antes de invertir.</p>
     <div class="offers rv d2">
 
       <div class="card offer">
@@ -830,8 +832,9 @@ src="https://www.facebook.com/tr?id=1251400936528512&ev=PageView&noscript=1"
           <span class="period">USD</span>
         </div>
         <ul class="flist">
-          <li>Impulso visual de nivel inicial — perfecto para arrancar</li>
-          <li>Tu perfil se ve más atractivo y confiable desde el primer vistazo</li>
+          <li><strong>+500 de audiencia latina real</strong> para tu perfil</li>
+          <li>+1,000 reacciones ❤️ en tus publicaciones</li>
+          <li>+4,000 reproducciones para tus videos</li>
           <li>Para 1 plataforma: Instagram o TikTok</li>
           <li>Activación inmediata · Soporte por WhatsApp</li>
           <li>Garantía de satisfacción incluida</li>
@@ -851,8 +854,9 @@ src="https://www.facebook.com/tr?id=1251400936528512&ev=PageView&noscript=1"
         </div>
         <p style="font-size:11.5px;color:var(--muted2);margin:-4px 0 12px">Menos de lo que cuesta un solo día de publicidad bien hecha — y esto no se apaga.</p>
         <ul class="flist">
-          <li><strong>8× el impulso</strong> de la Opción Inicial</li>
-          <li>Tu cuenta se ve consolidada desde la primera visita</li>
+          <li><strong>+4,000 de audiencia latina real</strong> — tu cuenta se ve consolidada</li>
+          <li>+2,000 reacciones ❤️ en tus publicaciones</li>
+          <li>+10,000 reproducciones para tus videos</li>
           <li>Para 1 plataforma: Instagram o TikTok</li>
           <li>Activación inmediata · Atención prioritaria</li>
           <li>Garantía de satisfacción incluida</li>
@@ -871,8 +875,9 @@ src="https://www.facebook.com/tr?id=1251400936528512&ev=PageView&noscript=1"
         </div>
         <p style="font-size:11.5px;color:var(--muted2);margin:-4px 0 12px">El paquete completo: la autoridad de una marca establecida, desde el primer día.</p>
         <ul class="flist">
-          <li><strong>Máximo nivel de impulso</strong> — presencia dominante</li>
-          <li>Ideal para marcas y perfiles que van en serio</li>
+          <li><strong>+10,000 de audiencia latina real</strong> — máxima presencia</li>
+          <li>+5,000 reacciones ❤️ en tus publicaciones</li>
+          <li>+30,000 reproducciones para tus videos</li>
           <li>Para 1 plataforma: Instagram o TikTok</li>
           <li>Activación inmediata · Seguimiento personalizado</li>
           <li>Garantía de satisfacción incluida</li>
@@ -1067,5 +1072,27 @@ function tFaq(btn) {
 
 </script>
 
+
+<script>
+const COP_RATE=3300, COP_DISC=.8;
+let cur='USD';
+const copVal=u=>Math.round(u*COP_DISC*COP_RATE/1000)*1000-100;
+const fmtCop=v=>'$'+v.toLocaleString('es-CO');
+function toggleCur(){
+  cur=cur==='USD'?'COP':'USD';
+  document.querySelectorAll('.offer-price').forEach(p=>{
+    if(!p.dataset.usd){
+      const a=p.querySelector('.amount'),c=p.querySelector('.cents');
+      p.dataset.usd=parseFloat(a.textContent.replace('$','')+(c?c.textContent:''));
+      p.dataset.orig=p.innerHTML;
+    }
+    if(cur==='COP'){
+      p.innerHTML='<span class="amount" style="font-size:clamp(34px,5vw,46px)">'+fmtCop(copVal(parseFloat(p.dataset.usd)))+'</span> <span class="period">COP</span>';
+    } else { p.innerHTML=p.dataset.orig; }
+  });
+  document.getElementById('curBtn').textContent = cur==='USD' ? '🇨🇴 Ver precios en COP' : '🇺🇸 Ver precios en USD';
+  document.getElementById('copNoteWk').style.display = cur==='COP' ? 'block' : 'none';
+}
+</script>
 </body>
 </html>
